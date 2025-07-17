@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,6 +13,17 @@ const Index = () => {
     description: ''
   });
 
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
@@ -26,57 +37,98 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-light-bg via-light-bg-alt to-white">
+    <div className="min-h-screen mesh-gradient overflow-hidden">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50 glassmorphism">
+      <nav className="fixed top-0 w-full z-50 ultra-glassmorphism">
         <div className="container mx-auto px-6 py-4 flex justify-between items-center">
           <div className="text-2xl font-bold text-dark-text">
-            <span className="text-gradient">Эвон</span>Сервис
+            <span className="text-gradient-premium">Эвон</span>
+            <span className="font-light">Сервис</span>
           </div>
           <div className="hidden md:flex space-x-8">
-            <a href="#services" className="text-dark-text hover:text-lime-primary transition-colors">Услуги</a>
-            <a href="#about" className="text-dark-text hover:text-lime-primary transition-colors">О нас</a>
-            <a href="#contact" className="text-dark-text hover:text-lime-primary transition-colors">Контакты</a>
+            <a href="#services" className="text-dark-text hover:text-lime-primary transition-all duration-300 magnetic-hover">Услуги</a>
+            <a href="#about" className="text-dark-text hover:text-lime-primary transition-all duration-300 magnetic-hover">О нас</a>
+            <a href="#contact" className="text-dark-text hover:text-lime-primary transition-all duration-300 magnetic-hover">Контакты</a>
           </div>
-          <Button className="bg-lime-primary hover:bg-lime-secondary text-white">
+          <button className="premium-button px-6 py-3 text-white font-medium">
             <Icon name="Phone" size={16} className="mr-2" />
             Вызвать мастера
-          </Button>
+          </button>
         </div>
       </nav>
 
       {/* Hero Section */}
-      <section className="pt-32 pb-20 px-6">
-        <div className="container mx-auto text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-5xl md:text-7xl font-bold text-dark-text mb-6">
-              Когда техника <br />
-              <span className="text-gradient">не слушается</span>
+      <section className="pt-32 pb-20 px-6 relative overflow-hidden">
+        <div className="container mx-auto text-center relative z-10">
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8">
+              <span className="inline-block px-4 py-2 bg-lime-primary/10 rounded-full text-lime-primary font-medium text-sm mb-6">
+                ✨ Премиум сервис в Эвон, Кверти
+              </span>
+            </div>
+            
+            <h1 className="hero-text text-dark-text mb-8">
+              Когда техника<br />
+              <span className="text-gradient-premium">забывает</span><br />
+              <span className="text-gradient-premium">работать</span>
             </h1>
-            <p className="text-xl text-dark-text-alt mb-8 max-w-2xl mx-auto leading-relaxed">
-              В престижном районе Эвон, Кверти мы возвращаем к жизни бытовую технику 
-              с той же заботой, с которой Apple создаёт свои продукты
+            
+            <p className="text-xl md:text-2xl text-dark-text-alt mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+              Мы возвращаем к жизни бытовую технику с той же элегантностью, 
+              с которой создают произведения искусства
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="bg-lime-primary hover:bg-lime-secondary text-white px-8 py-6 text-lg">
-                <Icon name="Wrench" size={20} className="mr-2" />
+            
+            <div className="flex flex-col sm:flex-row gap-6 justify-center mb-16">
+              <button className="premium-button px-10 py-5 text-white text-lg font-medium">
+                <Icon name="Wrench" size={24} className="mr-3" />
                 Диагностика за 15 минут
-              </Button>
-              <Button size="lg" variant="outline" className="border-lime-primary text-lime-primary hover:bg-lime-primary hover:text-white px-8 py-6 text-lg">
-                <Icon name="Play" size={20} className="mr-2" />
+              </button>
+              <button className="gradient-border px-10 py-5 text-dark-text text-lg font-medium hover:scale-105 transition-transform duration-300">
+                <Icon name="Play" size={24} className="mr-3" />
                 Посмотреть работу
-              </Button>
+              </button>
             </div>
           </div>
           
-          {/* Floating appliance image */}
-          <div className="mt-16 relative">
-            <div className="floating-animation">
+          {/* 3D Floating Elements */}
+          <div className="relative">
+            <div className="floating-3d">
               <img 
                 src="/img/5401fc66-6556-4a00-a24c-074ee9860039.jpg" 
-                alt="Современная бытовая техника в премиальном стиле" 
-                className="mx-auto max-w-3xl w-full h-auto rounded-3xl shadow-2xl"
+                alt="Современная бытовая техника" 
+                className="mx-auto max-w-4xl w-full h-auto rounded-3xl shadow-2xl"
               />
+            </div>
+            
+            {/* Floating UI Elements */}
+            <div 
+              className="absolute top-10 left-10 w-20 h-20 ultra-glassmorphism rounded-full flex items-center justify-center floating-3d"
+              style={{
+                transform: `translate(${mousePosition.x * 0.01}px, ${mousePosition.y * 0.01}px)`,
+                animation: 'float3d 6s ease-in-out infinite'
+              }}
+            >
+              <Icon name="Zap" size={32} className="text-lime-primary" />
+            </div>
+            
+            <div 
+              className="absolute top-20 right-20 w-16 h-16 ultra-glassmorphism rounded-2xl flex items-center justify-center floating-3d"
+              style={{
+                transform: `translate(${mousePosition.x * -0.015}px, ${mousePosition.y * -0.015}px)`,
+                animation: 'float3d 8s ease-in-out infinite reverse'
+              }}
+            >
+              <Icon name="Settings" size={24} className="text-lime-primary" />
+            </div>
+            
+            <div 
+              className="absolute bottom-10 left-1/4 w-12 h-12 ultra-glassmorphism rounded-xl flex items-center justify-center floating-3d"
+              style={{
+                transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+                animation: 'float3d 10s ease-in-out infinite'
+              }}
+            >
+              <Icon name="CheckCircle" size={20} className="text-lime-primary" />
             </div>
           </div>
         </div>

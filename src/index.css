@@ -1,4 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -110,31 +111,241 @@
 }
 
 @layer utilities {
-  .glassmorphism {
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+  .ultra-glassmorphism {
+    backdrop-filter: blur(40px) saturate(200%);
+    -webkit-backdrop-filter: blur(40px) saturate(200%);
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.25) 0%,
+      rgba(255, 255, 255, 0.1) 100%
+    );
+    border: 1px solid transparent;
+    background-clip: padding-box;
+    box-shadow:
+      0 20px 40px rgba(0, 0, 0, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
   }
 
-  .text-gradient {
-    background: linear-gradient(135deg, #aad658 0%, #87c423 100%);
+  .gradient-border {
+    position: relative;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+    border-radius: 24px;
+  }
+
+  .gradient-border::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 24px;
+    padding: 2px;
+    background: linear-gradient(
+      135deg,
+      #aad658 0%,
+      #87c423 25%,
+      #7bba1c 50%,
+      #aad658 75%,
+      #87c423 100%
+    );
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: source-out;
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask-composite: exclude;
+  }
+
+  .text-gradient-premium {
+    background: linear-gradient(
+      135deg,
+      #aad658 0%,
+      #87c423 25%,
+      #7bba1c 50%,
+      #669811 75%,
+      #aad658 100%
+    );
+    background-size: 400% 400%;
+    animation: gradient-flow 8s ease infinite;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    filter: drop-shadow(0 0 20px rgba(170, 214, 88, 0.3));
   }
 
-  .floating-animation {
-    animation: float 6s ease-in-out infinite;
+  .floating-3d {
+    animation: float3d 8s ease-in-out infinite;
+    transform-style: preserve-3d;
   }
 
-  @keyframes float {
+  .card-3d {
+    transform-style: preserve-3d;
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .card-3d:hover {
+    transform: rotateY(10deg) rotateX(10deg) translateZ(20px);
+    box-shadow:
+      0 40px 80px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      inset 0 2px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .mesh-gradient {
+    background:
+      radial-gradient(
+        circle at 20% 20%,
+        rgba(170, 214, 88, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 80%,
+        rgba(135, 196, 35, 0.3) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 40% 40%,
+        rgba(123, 186, 28, 0.2) 0%,
+        transparent 50%
+      ),
+      linear-gradient(135deg, #edf1f1 0%, #eff2f4 50%, #ffffff 100%);
+    background-size:
+      800px 800px,
+      600px 600px,
+      400px 400px,
+      100% 100%;
+    animation: mesh-movement 20s ease infinite;
+  }
+
+  .hero-text {
+    font-family: "Space Grotesk", sans-serif;
+    font-weight: 700;
+    font-size: clamp(3rem, 8vw, 7rem);
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-shadow: 0 0 40px rgba(170, 214, 88, 0.2);
+  }
+
+  .premium-button {
+    background: linear-gradient(135deg, #aad658 0%, #87c423 100%);
+    border: 0;
+    border-radius: 16px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    box-shadow:
+      0 10px 30px rgba(170, 214, 88, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  }
+
+  .premium-button::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.3),
+      transparent
+    );
+    transition: left 0.5s;
+  }
+
+  .premium-button:hover::before {
+    left: 100%;
+  }
+
+  .premium-button:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 20px 40px rgba(170, 214, 88, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.3),
+      inset 0 1px 0 rgba(255, 255, 255, 0.4);
+  }
+
+  @keyframes gradient-flow {
     0%,
     100% {
-      transform: translateY(0px);
+      background-position: 0% 50%;
     }
     50% {
-      transform: translateY(-20px);
+      background-position: 100% 50%;
     }
+  }
+
+  @keyframes float3d {
+    0%,
+    100% {
+      transform: translateY(0px) rotateX(0deg) rotateY(0deg);
+    }
+    33% {
+      transform: translateY(-20px) rotateX(5deg) rotateY(-5deg);
+    }
+    66% {
+      transform: translateY(-10px) rotateX(-5deg) rotateY(5deg);
+    }
+  }
+
+  @keyframes mesh-movement {
+    0%,
+    100% {
+      background-position:
+        0% 0%,
+        100% 100%,
+        50% 50%,
+        0% 0%;
+    }
+    25% {
+      background-position:
+        100% 0%,
+        0% 100%,
+        0% 50%,
+        0% 0%;
+    }
+    50% {
+      background-position:
+        100% 100%,
+        0% 0%,
+        100% 0%,
+        0% 0%;
+    }
+    75% {
+      background-position:
+        0% 100%,
+        100% 0%,
+        50% 100%,
+        0% 0%;
+    }
+  }
+
+  .section-reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .section-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .magnetic-hover {
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+  }
+
+  .magnetic-hover:hover {
+    transform: translateY(-5px) scale(1.02);
   }
 }
