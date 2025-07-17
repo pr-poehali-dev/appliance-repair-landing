@@ -61,7 +61,18 @@ export default {
 					'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
-				}
+				},
+				// Premium appliance repair colors
+				'light-bg': '#EDF1F1',
+				'light-bg-alt': '#EFF2F4',
+				'dark-text': '#232C34',
+				'dark-text-alt': '#202831',
+				'dark-accent': '#192027',
+				'lime-primary': '#AAD658',
+				'lime-secondary': '#87C423',
+				'lime-accent': '#8BC430',
+				'lime-dark': '#669811',
+				'lime-bright': '#7BBA1C'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
